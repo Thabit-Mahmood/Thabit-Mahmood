@@ -19,7 +19,6 @@ from cryptography.hazmat.primitives.asymmetric import mldsa
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ID = ROOT / "identity"
 CTX_IDENTITY = b"thabit-mahmood/profile/v1"
-CTX_HANDSHAKE = b"thabit-mahmood/handshake/v1"
 
 
 def canonical(obj) -> bytes:

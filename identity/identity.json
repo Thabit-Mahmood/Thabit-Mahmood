@@ -9,11 +9,6 @@
     "intrusion detection"
   ],
   "based": "Cyberjaya, Malaysia",
-  "from": "Egypt",
-  "speaks": [
-    "Arabic",
-    "English"
-  ],
   "research": "My doctoral research explores federated learning that every participant can verify and that remains secure against quantum adversaries.",
   "engineering": "I build what I research, from protocol design to working code, mostly in Python, Rust, Go and TypeScript.",
   "published": "Published research on intrusion detection for drone networks, federated detection of zero-day threats and deep learning for healthcare.",

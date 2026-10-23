@@ -4,8 +4,7 @@
     python3 verify.py --status assets/status.json
     python3 scripts/build.py
 
-Signing is done by scripts/sign.py and visitor handshakes by
-scripts/handshake.py; this script only draws. The guilloche seal is
+Signing is done by scripts/sign.py; this script only draws. The guilloche seal is
 generated from the signing key's fingerprint, so a different key draws a
 different seal, much like SSH's randomart.
 
@@ -274,8 +273,8 @@ def front(theme, rec, fp, sig_hex, status):
     card.text(46, 150, rec["name"], 50, wt=500, fill=c["ink"], spacing=-0.6)
     card.text(48, 186, rec["title"], 21, st="italic", fill=c["body"])
     rows = [("ROLE", rec["role"]), ("ALSO", rec["also"]), ("FOCUS", rec["focus"]),
-            ("BASED", f'{rec["based"]} · from {rec["from"]}'), ("SPEAKS", " · ".join(rec["speaks"]))]
-    y = 238
+            ("BASED", rec["based"])]
+    y = 248
     for lab, val in rows:
         card.text(48, y, lab, 10, fam="mono", fill=c["teal"], spacing=2)
         if isinstance(val, list):
@@ -290,7 +289,7 @@ def front(theme, rec, fp, sig_hex, status):
             lines = wrap(val, 420, 15.5)
         for i, ln in enumerate(lines):
             card.text(132, y + 1 + i * 22, ln, 15.5, fill=c["ink"] if i == 0 else c["ink"])
-        y += 30 + (len(lines) - 1) * 22
+        y += 34 + (len(lines) - 1) * 22
     rosette(card, 674, 228, fp)
     card.text(674, 364, "ML-DSA-65  ·  FIPS 204", 10, fam="mono", fill=c["muted"], anchor="middle", spacing=1.2)
     card.css.append(".ok{animation:fade .6s ease-out 2.6s both}")
@@ -310,24 +309,14 @@ def front(theme, rec, fp, sig_hex, status):
     card.text(W - 48, 460, "verify.py", 11, fam="mono", fill=c["teal"], anchor="end", spacing=1.1)
     return card.svg(f"{rec['name']}, credential",
                     f"{rec['name']}. {rec['title']}. {rec['role']}. {rec['also']}. Focus: {', '.join(rec['focus'])}. "
-                    f"Based in {rec['based']}, from {rec['from']}. Speaks {', '.join(rec['speaks'])}. "
+                    f"Based in {rec['based']}. "
                     f"Signed with ML-DSA-65, key fingerprint {fp[:16]}.")
 
 
 def back(theme, rec, fp, status):
     c = THEMES[theme]
-    total = status.get("handshakes_total", 0)
-    if total:
-        hs = (f"{total} visitor{'s' if total != 1 else ''} completed a post-quantum handshake with this profile, "
-              "each transcript signed with ML-DSA-65.")
-        hs_extra = "Latest: " + ", ".join(status.get("recent", []))
-    else:
-        hs = ("Open an issue titled handshake and a GitHub Action runs a real ML-KEM-768 key exchange "
-              "with you, then signs the transcript.")
-        hs_extra = "No handshakes yet. Be the first."
     cols = [(48, ("RESEARCH", rec["research"], None), ("PUBLISHED", rec["published"], "Full list on ORCID.")),
-            (436, ("ENGINEERING", rec["engineering"], None), ("SERVICE", rec["service"], None),
-             ("HANDSHAKES", hs, hs_extra))]
+            (436, ("ENGINEERING", rec["engineering"], None), ("SERVICE", rec["service"], None))]
     cw = 356
     size, lead = 15.5, 24
     # height from the longest column
@@ -366,7 +355,7 @@ def back(theme, rec, fp, status):
               fill=c["muted"], anchor="middle")
     return card.svg(f"{rec['name']}, fields of work",
                     f"Research: {rec['research']} Engineering: {rec['engineering']} Published: {rec['published']} "
-                    f"Service: {rec['service']} Handshakes: {hs} {hs_extra}")
+                    f"Service: {rec['service']}")
 
 
 def button(theme, label):
@@ -397,7 +386,6 @@ def main():
         (OUT / f"record-{t}.svg").write_text(back(t, rec, fp, status), encoding="utf-8")
         (OUT / f"linkedin-{t}.svg").write_text(button(t, "LINKEDIN"), encoding="utf-8")
         (OUT / f"orcid-{t}.svg").write_text(button(t, "ORCID"), encoding="utf-8")
-        (OUT / f"handshake-{t}.svg").write_text(button(t, "HANDSHAKE"), encoding="utf-8")
     for p in sorted(OUT.glob("*.svg")):
         print(f"{p.name:22s} {p.stat().st_size / 1024:6.1f} KB")
 
