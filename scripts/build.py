@@ -1,11 +1,13 @@
-"""Signs identity/identity.json and renders the profile cards.
+"""Renders the profile cards from identity/ and assets/status.json.
 
-    pip install fonttools brotli dilithium-py
-    SERIF=... MONO=... python3 scripts/build.py --sign
+    pip install fonttools brotli cryptography
+    python3 verify.py --status assets/status.json
+    python3 scripts/build.py
 
---sign generates a fresh ML-DSA-65 key pair, signs the canonical record and
-writes identity/ml-dsa-65.pub and identity/identity.sig. The private key is
-never written to disk; re-issuing the card means re-signing with a new key.
+Signing is done by scripts/sign.py and visitor handshakes by
+scripts/handshake.py; this script only draws. The guilloche seal is
+generated from the signing key's fingerprint, so a different key draws a
+different seal, much like SSH's randomart.
 
 The cards borrow the language of security printing. Banknotes and passports
 use guilloche (interlaced spirograph line work), seals and microprint so a
@@ -21,7 +23,6 @@ import json
 import math
 import os
 import pathlib
-import sys
 from xml.sax.saxutils import escape
 
 from fontTools import subset
@@ -30,16 +31,17 @@ from fontTools.ttLib import TTFont
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ID = ROOT / "identity"
 OUT = ROOT / "assets"
-SERIF = pathlib.Path(os.environ.get("SERIF", "fonts"))
-MONO = pathlib.Path(os.environ.get("MONO", "fonts"))
-CTX = b"thabit-mahmood/profile/v1"
+SERIF = pathlib.Path(os.environ.get("SERIF", ROOT / "fonts"))
+MONO = pathlib.Path(os.environ.get("MONO", ROOT / "fonts"))
 
 W = 840
 THEMES = {
     "light": dict(paper="#F6F3EB", ink="#1A222C", body="#38424D", muted="#66707B", faint="#9AA1A9",
-                  rule="#DAD4C5", teal="#1F6E64", bronze="#8C6B3A", wave=".11", shadow=True, sheen="#FFFFFF"),
+                  rule="#DAD4C5", teal="#1F6E64", bronze="#8C6B3A", wave=".11", shadow=True, sheen="#FFFFFF",
+                  alert="#B42318"),
     "dark": dict(paper="#10161E", ink="#EEF1F4", body="#CBD3DC", muted="#97A1AC", faint="#66717D",
-                 rule="#29323C", teal="#53C6AE", bronze="#C9A66B", wave=".13", shadow=False, sheen="#BFF5E9"),
+                 rule="#29323C", teal="#53C6AE", bronze="#C9A66B", wave=".13", shadow=False, sheen="#BFF5E9",
+                 alert="#FF7B72"),
 }
 FACES = {
     ("serif", 400, "normal"): SERIF / "newsreader-latin-400-normal.woff2",
@@ -203,9 +205,11 @@ def curve_path(fn, t1, steps):
     return compact([fn(t1 * i / steps) for i in range(steps + 1)], close=True)
 
 
-def rosette(card, cx, cy, mono="TM"):
+def rosette(card, cx, cy, fp, mono="TM"):
+    """Guilloche seal whose lobe counts, phases and star are read off the key fingerprint."""
     c = card.c
     parts = []
+    fb = bytes.fromhex(fp)
 
     def ring(R0, A, N, phase):
         return lambda t: ((R0 + A * math.sin(N * t + phase)) * math.cos(t) + cx,
@@ -216,15 +220,30 @@ def rosette(card, cx, cy, mono="TM"):
         return lambda t: (cx + (R - r) * math.cos(t + rot) + d * math.cos(k * t - rot),
                           cy + (R - r) * math.sin(t + rot) - d * math.sin(k * t - rot))
 
+    n_outer = (34, 36, 38, 40, 42, 44)[fb[0] % 6]
+    k_outer = (6, 7, 8)[fb[1] % 3]
+    a_outer = 8 + (fb[2] % 3)
+    n_bronze = (48, 52, 56, 60)[fb[3] % 4]
+    # (R, r, d, turns): closed hypotrochoids, (R - r) / r = p / turns
+    star = ((78, 22, 23, 11), (78, 21, 23, 7), (78, 20, 22, 10), (78, 24, 22, 4))[fb[4] % 4]
+    rot = fb[5] / 255 * math.pi / 14
+    n_inner = (20, 22, 24, 26, 28)[fb[6] % 5]
+    spin = fb[7] / 255 * 2 * math.pi
+    R, r, d, turns = star
+
     layers = []
-    for i in range(7):  # woven outer band
-        layers.append((curve_path(ring(104, 9, 40, 2 * math.pi * i / 7), 2 * math.pi, 480), c["teal"], ".85", .55, 0.0 + i * .06))
+    for i in range(k_outer):  # woven outer band
+        layers.append((curve_path(ring(104, a_outer, n_outer, spin + 2 * math.pi * i / k_outer), 2 * math.pi, 480),
+                       c["teal"], ".85", .55, i * .06))
     for i in range(3):  # bronze inner band
-        layers.append((curve_path(ring(86, 4.5, 56, 2 * math.pi * i / 3), 2 * math.pi, 620), c["bronze"], ".75", .5, .5 + i * .06))
-    layers.append((curve_path(hypo(78, 22, 23, 0), 22 * math.pi, 1500), c["teal"], ".7", .45, .8))   # 28/11 star, 11 turns
-    layers.append((curve_path(hypo(78, 22, 23, math.pi / 28), 22 * math.pi, 1500), c["bronze"], ".45", .4, 1.0))
+        layers.append((curve_path(ring(86, 4.5, n_bronze, spin + 2 * math.pi * i / 3), 2 * math.pi, 620),
+                       c["bronze"], ".75", .5, .5 + i * .06))
+    layers.append((curve_path(hypo(R, r, d, rot), 2 * math.pi * turns, 140 * turns), c["teal"], ".7", .45, .8))
+    layers.append((curve_path(hypo(R, r, d, rot + math.pi / (2 * turns + 6)), 2 * math.pi * turns, 140 * turns),
+                   c["bronze"], ".45", .4, 1.0))
     for i in range(5):
-        layers.append((curve_path(ring(34, 5, 24, 2 * math.pi * i / 5), 2 * math.pi, 300), c["teal"], ".8", .5, 1.3 + i * .05))
+        layers.append((curve_path(ring(34, 5, n_inner, spin + 2 * math.pi * i / 5), 2 * math.pi, 300),
+                       c["teal"], ".8", .5, 1.3 + i * .05))
     for d_, col, op, sw, delay in layers:
         parts.append(f'<path class="g" style="animation-delay:{f(delay)}s" pathLength="1" d="{d_}" fill="none" '
                      f'stroke="{col}" stroke-opacity="{op}" stroke-width="{sw}"/>')
@@ -246,7 +265,7 @@ def rosette(card, cx, cy, mono="TM"):
 
 # ------------------------------------------------------------------ cards
 
-def front(theme, rec, fp, sig_hex):
+def front(theme, rec, fp, sig_hex, status):
     card = Card(theme, 500)
     c = card.c
     serial = fp[:8].upper()
@@ -272,10 +291,17 @@ def front(theme, rec, fp, sig_hex):
         for i, ln in enumerate(lines):
             card.text(132, y + 1 + i * 22, ln, 15.5, fill=c["ink"] if i == 0 else c["ink"])
         y += 30 + (len(lines) - 1) * 22
-    rosette(card, 674, 228)
+    rosette(card, 674, 228, fp)
     card.text(674, 364, "ML-DSA-65  ·  FIPS 204", 10, fam="mono", fill=c["muted"], anchor="middle", spacing=1.2)
     card.css.append(".ok{animation:fade .6s ease-out 2.6s both}")
-    card.text(674, 384, "signature valid ✓", 13, st="italic", fill=c["teal"], anchor="middle", cls="ok")
+    valid = status.get("credential_valid")
+    if valid:
+        line, col = f"verified {status['checked']} ✓", c["teal"]
+    elif valid is None:
+        line, col = "not yet verified", c["muted"]
+    else:
+        line, col = "signature invalid ✗", c["alert"]
+    card.text(674, 384, line, 13, st="italic", fill=col, anchor="middle", cls="ok")
     card.microprint(414)
     fpg = " ".join(fp[i:i + 8].upper() for i in range(0, 32, 8))
     card.text(48, 440, f"KEY  SHA-256  {fpg}", 11, fam="mono", fill=c["muted"], spacing=1.1)
@@ -288,10 +314,20 @@ def front(theme, rec, fp, sig_hex):
                     f"Signed with ML-DSA-65, key fingerprint {fp[:16]}.")
 
 
-def back(theme, rec, fp):
+def back(theme, rec, fp, status):
     c = THEMES[theme]
+    total = status.get("handshakes_total", 0)
+    if total:
+        hs = (f"{total} visitor{'s' if total != 1 else ''} completed a post-quantum handshake with this profile, "
+              "each transcript signed with ML-DSA-65.")
+        hs_extra = "Latest: " + ", ".join(status.get("recent", []))
+    else:
+        hs = ("Open an issue titled handshake and a GitHub Action runs a real ML-KEM-768 key exchange "
+              "with you, then signs the transcript.")
+        hs_extra = "No handshakes yet. Be the first."
     cols = [(48, ("RESEARCH", rec["research"], None), ("PUBLISHED", rec["published"], "Full list on ORCID.")),
-            (436, ("ENGINEERING", rec["engineering"], None), ("SERVICE", rec["service"], None))]
+            (436, ("ENGINEERING", rec["engineering"], None), ("SERVICE", rec["service"], None),
+             ("HANDSHAKES", hs, hs_extra))]
     cw = 356
     size, lead = 15.5, 24
     # height from the longest column
@@ -305,7 +341,7 @@ def back(theme, rec, fp):
     for x0, *entries in cols:
         y = 112
         for lab, txt, extra in entries:
-            y += 28 + len(wrap(txt, cw, size)) * lead + (lead if extra else 0) + 26
+            y += 28 + len(wrap(txt, cw, size)) * lead + (len(wrap(extra, cw, 14, st="italic")) * lead if extra else 0) + 26
         bottoms.append(y)
     H = int(max(bottoms) - 26 + 22 + 74)
     card = Card(theme, H)
@@ -319,8 +355,9 @@ def back(theme, rec, fp):
                 card.text(x0, y, ln, size, fill=c["ink"])
                 y += lead
             if extra:
-                card.text(x0, y, extra, 14, st="italic", fill=c["muted"])
-                y += lead
+                for ln in wrap(extra, cw, 14, st="italic"):
+                    card.text(x0, y, ln, 14, st="italic", fill=c["muted"])
+                    y += lead
             y += 26
     yb = H - 70
     card.raw(f'<line x1="48" y1="{yb}" x2="{W - 48}" y2="{yb}" stroke="{c["rule"]}"/>')
@@ -329,7 +366,7 @@ def back(theme, rec, fp):
               fill=c["muted"], anchor="middle")
     return card.svg(f"{rec['name']}, fields of work",
                     f"Research: {rec['research']} Engineering: {rec['engineering']} Published: {rec['published']} "
-                    f"Service: {rec['service']}")
+                    f"Service: {rec['service']} Handshakes: {hs} {hs_extra}")
 
 
 def button(theme, label):
@@ -347,23 +384,20 @@ def button(theme, label):
 
 def main():
     rec = json.loads((ID / "identity.json").read_text(encoding="utf-8"))
-    if "--sign" in sys.argv:
-        from dilithium_py.ml_dsa import ML_DSA_65
-        pk, sk = ML_DSA_65.keygen()
-        sig = ML_DSA_65.sign(sk, canonical(rec), ctx=CTX)
-        assert ML_DSA_65.verify(pk, canonical(rec), sig, ctx=CTX)
-        (ID / "ml-dsa-65.pub").write_text(pk.hex() + "\n")
-        (ID / "identity.sig").write_text(sig.hex() + "\n")
-        del sk
     pk = bytes.fromhex((ID / "ml-dsa-65.pub").read_text().strip())
     sig_hex = (ID / "identity.sig").read_text().strip()
     fp = hashlib.sha256(pk).hexdigest()
+    status_path = OUT / "status.json"
+    status = json.loads(status_path.read_text()) if status_path.exists() else {}
+    if status.get("key_sha256") not in (None, fp):
+        status = {}  # stale status from another key
     OUT.mkdir(exist_ok=True)
     for t in THEMES:
-        (OUT / f"credential-{t}.svg").write_text(front(t, rec, fp, sig_hex), encoding="utf-8")
-        (OUT / f"record-{t}.svg").write_text(back(t, rec, fp), encoding="utf-8")
+        (OUT / f"credential-{t}.svg").write_text(front(t, rec, fp, sig_hex, status), encoding="utf-8")
+        (OUT / f"record-{t}.svg").write_text(back(t, rec, fp, status), encoding="utf-8")
         (OUT / f"linkedin-{t}.svg").write_text(button(t, "LINKEDIN"), encoding="utf-8")
         (OUT / f"orcid-{t}.svg").write_text(button(t, "ORCID"), encoding="utf-8")
+        (OUT / f"handshake-{t}.svg").write_text(button(t, "HANDSHAKE"), encoding="utf-8")
     for p in sorted(OUT.glob("*.svg")):
         print(f"{p.name:22s} {p.stat().st_size / 1024:6.1f} KB")
 

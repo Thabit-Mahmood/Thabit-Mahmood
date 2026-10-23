@@ -1,0 +1,9 @@
+{
+ "credential_valid": true,
+ "engine": "pyca/cryptography 50.0.1",
+ "key_sha256": "a92efb766d01c9f88cc68657ad7692ca565d18bbc1f261f6f26614e065d15730",
+ "checked": "2026-10-23",
+ "handshakes_valid": 0,
+ "handshakes_total": 0,
+ "recent": []
+}
