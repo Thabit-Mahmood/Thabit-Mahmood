@@ -21,11 +21,11 @@
 <summary><b>Verify this profile</b></summary>
 <br>
 
-The credential is a real signed statement. [`identity/identity.json`](identity/identity.json) holds the facts on the card, signed with **ML-DSA-65** (FIPS 204, NIST's post-quantum signature standard). The public key and signature sit next to it.
+The credential is a real signed statement. [`identity/identity.json`](identity/identity.json) holds the facts on the card, signed with **ML-DSA-65** (FIPS 204, NIST's post-quantum signature standard). The public key and signature sit next to it. `verify.py` checks them with pyca/cryptography, or with the independent pure-Python dilithium-py if your cryptography predates ML-DSA. Change one character of the record and verification fails.
 
 ```sh
 git clone https://github.com/Thabit-Mahmood/Thabit-Mahmood && cd Thabit-Mahmood
-pip install dilithium-py==1.5.1
+pip install --upgrade cryptography
 python3 verify.py
 ```
 
