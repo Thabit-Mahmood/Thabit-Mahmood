@@ -8,13 +8,6 @@ I'm a PhD candidate at the Faculty of Computing and Informatics, Multimedia Univ
 ### Research
 
 - **Post-quantum verifiable federated learning.** My PhD. Code and papers will be published here once they clear review.
-- **AI-driven attack detection for UAV networks.** A PRISMA 2020 systematic review of 197 studies across nine AI paradigms, under review.
-
-### Teaching and community
-
-- Taught Computer Science and Python at IMAS International School, Putrajaya.
-- Founding team and secretary of Cyberspectre, the MMU cybersecurity club.
-- Organising committees for academic conferences.
 
 ### Tools
 
