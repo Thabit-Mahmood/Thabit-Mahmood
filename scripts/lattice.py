@@ -171,8 +171,9 @@ def render(cal: dict, today: dt.date) -> str:
 
     fonts = font_face(FONTS / "live-400.woff2", 400) + "\n" + font_face(FONTS / "live-700.woff2", 700)
     return card(W, H, "\n".join(body), title="Contribution lattice",
-                desc=f"{total} contributions in the last 12 months, current streak {cur} days, longest "
-                     f"{longest} days, most active on {busiest}. Rendered {today.isoformat()}.",
+                desc=f"{total} contributions in the last 12 months, current streak {cur} "
+                     f"day{'s' * (cur != 1)}, longest {longest} day{'s' * (longest != 1)}, "
+                     f"most active on {busiest}. Rendered {today.isoformat()}.",
                 css="\n".join(css), defs=defs, fonts=fonts)
 
 
