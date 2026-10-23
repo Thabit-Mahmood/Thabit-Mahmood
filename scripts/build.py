@@ -386,6 +386,8 @@ def main():
         (OUT / f"record-{t}.svg").write_text(back(t, rec, fp, status), encoding="utf-8")
         (OUT / f"linkedin-{t}.svg").write_text(button(t, "LINKEDIN"), encoding="utf-8")
         (OUT / f"orcid-{t}.svg").write_text(button(t, "ORCID"), encoding="utf-8")
+    import scenes
+    scenes.render_all(rec, OUT)
     for p in sorted(OUT.glob("*.svg")):
         print(f"{p.name:22s} {p.stat().st_size / 1024:6.1f} KB")
 
