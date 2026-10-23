@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="142" height="46" viewBox="0 0 142 46" role="img" aria-labelledby="t d" xml:space="preserve"><title id="t">LINKEDIN</title><desc id="d">LINKEDIN</desc><style>@font-face{font-family:M;font-weight:400;font-style:normal;src:url(data:font/woff2;base64,d09GMgABAAAAAAJ8AA4AAAAABJgAAAIrAAJN0wAAAAAAAAAAAAAAAAAAAAAAAAAAGhYbIBwqBmAAXBEICoJ4giMBNgIkAxQLFAAEIAVIByAbPAMIngVOmT1afQmPPtF6qNTkhF0hiRE8v2bO+7uh3VwB2NUisGfLbOy1qsITyp4wdUnO5xmX/+SoBFY4GglUhF5Hv8396q2kvTWXtnxgAev/Mn/v08605wONA5MuTKjLXgotsHz24+YRTWzDgfBsZ3okImXbjdO+a5RAE5CEUBUChVHGiCXLAgnQ5dALwKkppklt3DMHx10IaGg6TzvingrpRtoBVu8/EPtoYwEkGgAC4wBWLQJ8MG7806zVeSdrRQhIU9IPjFNFQoZBMoFBcitAH3VJ1ThLeQWExj/t7cU4S3j58R29/9y89073LoKgPDVEL31BAwxAHYfAVQD5F2lcE82i2eyqDuhbVsqbnz9L1z59KraVN79Gdv1LUZSVLk0Jki4DBkV0KfJSq5PK3eWOncxdRXKTd92cvS8+vkQmttj3/OWh/ds5aUt2/e3QI7Ha8Vrs+XFzVw0zDtpli82HDp3lxXDJ5vPaZAuXmSWUfzzE/H/qiDpfvQmNTSfj4007PQvpH0nrmYvl0DX3tqi9RhpRrH7sOvhiSP6Yf/UF+Yq0YdKL7Uh+9vnZsMkvrL4RCi23m2Kifgt9zdah0zlrBgGBtPajmZld2s+b858u64G/PccWsfjE5t/yfmrng6oEgpF12kEJqcoUL5R2SEora0hb2QWmCzSi2zl71S7IPCRjQJE3hFHY5yV9jLJKxZjNUEFD14jYWj1dPTEVNRNtBUMkoDdahAIA) format('woff2')}
+text{white-space:pre}
+.s{font-family:S,'Newsreader',Georgia,serif}
+.m{font-family:M,'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;font-variant-ligatures:none}
+@keyframes up{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.w{animation:up .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d)}
+.fd{animation:fade .8s ease-out both;animation-delay:var(--d)}
+.dr{stroke-dasharray:1;animation:draw var(--l,.8s) cubic-bezier(.45,0,.2,1) both;animation-delay:var(--d)}
+.trail{stroke-dasharray:1;animation:draw var(--l) cubic-bezier(.45,0,.2,1) both;animation-delay:var(--d)}
+.spin{transform-origin:var(--o);animation:spin var(--r) linear infinite}
+.ccw{animation-direction:reverse}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style><defs><radialGradient id="gtb"><stop offset="0" stop-color="#4FC8AE" stop-opacity=".8"/><stop offset="1" stop-color="#4FC8AE" stop-opacity="0"/></radialGradient></defs>
+<rect x=".5" y=".5" width="141" height="45" rx="10" fill="#07090D" stroke="#1C232D"/>
+<rect x="4.5" y="4.5" width="133" height="37" rx="7" fill="none" stroke="#4FC8AE" stroke-opacity=".28" stroke-width=".7"/>
+<text x="24" y="28" class="m " font-size="11" font-weight="400" font-style="normal" fill="#E9EDF1" text-anchor="start" letter-spacing="2.2">LINKEDIN</text>
+<text x="120" y="28" class="m " font-size="12" font-weight="400" font-style="normal" fill="#4FC8AE" text-anchor="end">↗</text>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0;0.05;0.29;0.34;1" dur="10s" begin="2s" repeatCount="indefinite" calcMode="linear"/><circle r="7" fill="url(#gtb)"/><circle r="1.6" fill="#FFFFFF"/><animateMotion path="M11.5 4.5H130.5A7 7 0 0 1 137.5 11.5V34.5A7 7 0 0 1 130.5 41.5H11.5A7 7 0 0 1 4.5 34.5V11.5A7 7 0 0 1 11.5 4.5Z" dur="10s" begin="2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0;0.34;1" keyPoints="0;0;1;1" keySplines="0 0 1 1;0 0 1 1;0 0 1 1"/></g>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="116" height="46" viewBox="0 0 116 46" role="img" aria-labelledby="t d" xml:space="preserve"><title id="t">ORCID</title><desc id="d">ORCID</desc><style>@font-face{font-family:M;font-weight:400;font-style:normal;src:url(data:font/woff2;base64,d09GMgABAAAAAAKYAA4AAAAABNAAAAJIAAJN0wAAAAAAAAAAAAAAAAAAAAAAAAAAGhYbIBwqBmAAXBEICoMwgm8BNgIkAxILEgAEIAVIByAbhgMIHoVN2TP2CpLYbb+TTjoVDw/H8v1/mRi1soFn0mhAE7jTIx/4hJukfHi9fEmOP5UnjWe0zVXmBmjsMsjDDm3QsAj9X+bv/eimHv4D2jcnxQE+tQZaYFnZJGuDBhhgQNm81srkpUXZDV+zAoEmIIVQEgJ1IxNxFJWQAZEi/ANAoG7HnsSauTyXdjTBD14Gxcyh5sAnN3QO4HL8uXiCOsKApAYgMAO4OAC8InC+yvz8nQGFH0oKAnKHvgHMlJEoYKggMFR0BtqqUtnMkVjJ0uar//+AmcP4if8nR/ZsWl8LKOYGIf7BFVRBFzWsAS8AKAJCCikRIyfi5OLiKnYtnbigmP5LdvIcZH1BJs5Ar87ZyUuK7Ttj+XnkHPTq7IxkqcKAHmGpdY5QzqgXWVzhYCNL+WMCE6FjckkeoZnOytDibGc6g+lf861Iq17aIBpxRXtzWVyZkyukp6U0zx7GWSwcZ4+zcxMIs/NK8w4UvB1GV+mMpY4Qh7GMWqLLksu5uFguJNzFy1H7sKxfThspQUhqZa2tdfo6UsoY1xr80hSL/TLYXXMoEd4oCt9uw0u1usLQuPjahyV7+YyuVz86ZnREmS2OSOMY4jdJSf3DaWkBbuFxdfVjjY0rKi+AQF6f+hadFBS7Wl9FrswLwPdLVW9bXDP0aXoL/csrAZQlCD7GzkcIya95KwFehjwFCtTKUQj2BaqxgyajEGxCgUKaBKmiGGFE/bzUNnKhUgdOm1K1mrQLdK1Zk2ZpKlXr1KBUGwb4D2oEAw==) format('woff2')}
+text{white-space:pre}
+.s{font-family:S,'Newsreader',Georgia,serif}
+.m{font-family:M,'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;font-variant-ligatures:none}
+@keyframes up{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.w{animation:up .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d)}
+.fd{animation:fade .8s ease-out both;animation-delay:var(--d)}
+.dr{stroke-dasharray:1;animation:draw var(--l,.8s) cubic-bezier(.45,0,.2,1) both;animation-delay:var(--d)}
+.trail{stroke-dasharray:1;animation:draw var(--l) cubic-bezier(.45,0,.2,1) both;animation-delay:var(--d)}
+.spin{transform-origin:var(--o);animation:spin var(--r) linear infinite}
+.ccw{animation-direction:reverse}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style><defs><radialGradient id="gtb"><stop offset="0" stop-color="#4FC8AE" stop-opacity=".8"/><stop offset="1" stop-color="#4FC8AE" stop-opacity="0"/></radialGradient></defs>
+<rect x=".5" y=".5" width="115" height="45" rx="10" fill="#07090D" stroke="#1C232D"/>
+<rect x="4.5" y="4.5" width="107" height="37" rx="7" fill="none" stroke="#4FC8AE" stroke-opacity=".28" stroke-width=".7"/>
+<text x="24" y="28" class="m " font-size="11" font-weight="400" font-style="normal" fill="#E9EDF1" text-anchor="start" letter-spacing="2.2">ORCID</text>
+<text x="94" y="28" class="m " font-size="12" font-weight="400" font-style="normal" fill="#4FC8AE" text-anchor="end">↗</text>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0;0.05;0.29;0.34;1" dur="10s" begin="7s" repeatCount="indefinite" calcMode="linear"/><circle r="7" fill="url(#gtb)"/><circle r="1.6" fill="#FFFFFF"/><animateMotion path="M11.5 4.5H104.5A7 7 0 0 1 111.5 11.5V34.5A7 7 0 0 1 104.5 41.5H11.5A7 7 0 0 1 4.5 34.5V11.5A7 7 0 0 1 11.5 4.5Z" dur="10s" begin="7s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0;0.34;1" keyPoints="0;0;1;1" keySplines="0 0 1 1;0 0 1 1;0 0 1 1"/></g>
+</svg>
