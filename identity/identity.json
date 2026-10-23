@@ -1,0 +1,26 @@
+{
+  "name": "Thabit Mahmood",
+  "title": "Security researcher and developer",
+  "role": "PhD candidate, Multimedia University",
+  "also": "Graduate Research Assistant, TM R&D",
+  "focus": [
+    "Post-quantum cryptography",
+    "federated learning",
+    "intrusion detection"
+  ],
+  "based": "Cyberjaya, Malaysia",
+  "from": "Egypt",
+  "speaks": [
+    "Arabic",
+    "English"
+  ],
+  "research": "My PhD makes federated learning verifiable and quantum-safe: every participant can check the shared model, and the cryptography holds against quantum adversaries.",
+  "engineering": "I build what I research, from protocol design to working code, mostly in Python, Rust, Go and TypeScript.",
+  "published": "Co-author of published work on intrusion detection for drone networks, federated detection of zero-day threats and deep learning for healthcare.",
+  "service": "Organising committees of academic conferences.",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/thabit-mahmood/",
+    "orcid": "https://orcid.org/0009-0003-3909-3427"
+  },
+  "issued": "2026-10-23"
+}

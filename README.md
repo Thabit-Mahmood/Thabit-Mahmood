@@ -1,52 +1,32 @@
-<p>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/title-dark.svg">
-  <img src="assets/title-light.svg" width="100%" alt="Thabit Mahmood. PhD Candidate, Multimedia University. Graduate Research Assistant, TM R&D. Post-quantum cryptography for verifiable federated learning.">
-</picture>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/credential-dark.svg">
+    <img src="assets/credential-light.svg" width="100%" alt="Credential: Thabit Mahmood, security researcher and developer. PhD candidate, Multimedia University. Graduate Research Assistant, TM R&D. Focus: post-quantum cryptography, federated learning, intrusion detection. Based in Cyberjaya, Malaysia, from Egypt. Speaks Arabic and English. Signed with ML-DSA-65.">
+  </picture>
 </p>
 
-<p>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/s1-dark.svg">
-  <img src="assets/s1-light.svg" width="100%" alt="1. The problem: federated learning lacks a way for participants to verify the aggregate, and today's public-key cryptography falls to quantum computers. Figure 1 shows one federated round.">
-</picture>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/record-dark.svg">
+    <img src="assets/record-light.svg" width="100%" alt="Fields of work. Research: my PhD makes federated learning verifiable and quantum-safe. Engineering: I build what I research, from protocol design to working code. Published: co-author of work on intrusion detection for drone networks, federated zero-day threat detection and deep learning for healthcare. Service: organising committees of academic conferences.">
+  </picture>
 </p>
 
-<p>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/s2-dark.svg">
-  <img src="assets/s2-light.svg" width="100%" alt="2. The approach: federated learning built on lattice-based cryptography (ML-KEM, ML-DSA), whose security rests on learning with errors, b = As + e mod q. Figure 2 shows one lattice with a short secret basis and a long public basis.">
-</picture>
+<p align="center">
+  <a href="https://www.linkedin.com/in/thabit-mahmood/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/linkedin-dark.svg"><img src="assets/linkedin-light.svg" height="44" alt="LinkedIn"></picture></a>&nbsp;&nbsp;
+  <a href="https://orcid.org/0009-0003-3909-3427"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/orcid-dark.svg"><img src="assets/orcid-light.svg" height="44" alt="ORCID"></picture></a>
 </p>
 
-<p>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/s3-dark.svg">
-  <img src="assets/s3-light.svg" width="100%" alt="3. Tools. Post-quantum: ML-KEM, ML-DSA, lattice-based cryptography. Languages: Python, Rust, Go, TypeScript. Tooling: Linux, Git, GitHub Actions. Code and papers will appear here once published.">
-</picture>
-</p>
+<details>
+<summary><b>Verify this profile</b></summary>
+<br>
 
-<p>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/refs-dark.svg">
-  <img src="assets/refs-light.svg" width="100%" alt="References">
-</picture>
-</p>
+The credential is a real signed statement. [`identity/identity.json`](identity/identity.json) holds the facts on the card, signed with **ML-DSA-65** (FIPS 204, NIST's post-quantum signature standard). The public key and signature sit next to it.
 
-<p>
-<a href="https://www.linkedin.com/in/thabit-mahmood/"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/ref1-dark.svg">
-  <img src="assets/ref1-light.svg" width="100%" alt="[1] Thabit Mahmood. LinkedIn. linkedin.com/in/thabit-mahmood">
-</picture></a><br>
-<a href="https://orcid.org/0009-0003-3909-3427"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/ref2-dark.svg">
-  <img src="assets/ref2-light.svg" width="100%" alt="[2] Thabit Mahmood. ORCID iD 0009-0003-3909-3427">
-</picture></a>
-</p>
+```sh
+git clone https://github.com/Thabit-Mahmood/Thabit-Mahmood && cd Thabit-Mahmood
+pip install dilithium-py==1.5.1
+python3 verify.py
+```
 
-<p>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/colophon-dark.svg">
-  <img src="assets/colophon-light.svg" width="100%" alt="Set in Newsreader and JetBrains Mono. Figures drawn by hand in SVG.">
-</picture>
-</p>
+</details>
