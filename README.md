@@ -1,18 +1,52 @@
+<p>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg">
-  <img src="assets/hero-light.svg" width="100%" alt="Thabit Mahmood. PhD candidate at Multimedia University. Post-quantum cryptography and verifiable federated learning. Graduate Research Assistant, TM R&D, Cyberjaya, Malaysia.">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/title-dark.svg">
+  <img src="assets/title-light.svg" width="100%" alt="Thabit Mahmood. PhD Candidate, Multimedia University. Graduate Research Assistant, TM R&D. Post-quantum cryptography for verifiable federated learning.">
 </picture>
+</p>
 
-I'm a PhD candidate at the Faculty of Computing and Informatics, Multimedia University, and a Graduate Research Assistant at TM R&D. My work is on **post-quantum verifiable federated learning**: many parties train one model together, each can check that the result is correct, and the guarantees hold even against an adversary with a quantum computer.
+<p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/s1-dark.svg">
+  <img src="assets/s1-light.svg" width="100%" alt="1. The problem: federated learning lacks a way for participants to verify the aggregate, and today's public-key cryptography falls to quantum computers. Figure 1 shows one federated round.">
+</picture>
+</p>
 
-### Research
+<p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/s2-dark.svg">
+  <img src="assets/s2-light.svg" width="100%" alt="2. The approach: federated learning built on lattice-based cryptography (ML-KEM, ML-DSA), whose security rests on learning with errors, b = As + e mod q. Figure 2 shows one lattice with a short secret basis and a long public basis.">
+</picture>
+</p>
 
-- **Post-quantum verifiable federated learning.** My PhD. Code and papers will be published here once they clear review.
+<p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/s3-dark.svg">
+  <img src="assets/s3-light.svg" width="100%" alt="3. Tools. Post-quantum: ML-KEM, ML-DSA, lattice-based cryptography. Languages: Python, Rust, Go, TypeScript. Tooling: Linux, Git, GitHub Actions. Code and papers will appear here once published.">
+</picture>
+</p>
 
-### Tools
+<p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/refs-dark.svg">
+  <img src="assets/refs-light.svg" width="100%" alt="References">
+</picture>
+</p>
 
-Python, Rust, Go and TypeScript. PyTorch for learning systems. ML-KEM and ML-DSA (FIPS 203 and 204) for the post-quantum side. Linux, Docker and GitHub Actions for everything around it.
+<p>
+<a href="https://www.linkedin.com/in/thabit-mahmood/"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/ref1-dark.svg">
+  <img src="assets/ref1-light.svg" width="100%" alt="[1] Thabit Mahmood. LinkedIn. linkedin.com/in/thabit-mahmood">
+</picture></a><br>
+<a href="https://orcid.org/0009-0003-3909-3427"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/ref2-dark.svg">
+  <img src="assets/ref2-light.svg" width="100%" alt="[2] Thabit Mahmood. ORCID iD 0009-0003-3909-3427">
+</picture></a>
+</p>
 
-### Elsewhere
-
-[LinkedIn](https://www.linkedin.com/in/thabit-mahmood/) · [ORCID](https://orcid.org/0009-0003-3909-3427)
+<p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/colophon-dark.svg">
+  <img src="assets/colophon-light.svg" width="100%" alt="Set in Newsreader and JetBrains Mono. Figures drawn by hand in SVG.">
+</picture>
+</p>
